@@ -22,7 +22,7 @@ function App() {
           <p>test</p>
           <p>test</p>
         </Container>
-        <Container width="90%" margin="auto">
+        <Container width="80%" margin="auto">
           <GlobalRoutes />
         </Container>
       </div>
