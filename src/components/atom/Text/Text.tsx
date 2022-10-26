@@ -18,7 +18,7 @@ interface TextProps {
 function getMainStyles() {
   return css<TextProps>`
     ${({ textType }) => getTextStyle(textType || "b1")}
-    ${({ bold }) => bold && "font-weight: bold;"}
+    font-weight: ${({ bold }) => (bold ? "bold" : "normal")};
     ${({ color }) => `color: ${color};`}
     ${({ italic }) => italic && "font-style: italic;"}
   `;

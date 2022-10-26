@@ -3,7 +3,7 @@ import React from "react";
 import styled from "styled-components";
 
 interface ContainerProps {
-  children?: React.ReactElement | React.ReactElement[];
+  children?: React.ReactElement | React.ReactElement[] | string;
   display?: string;
   justifyContent?: string;
   alignItems?: string;

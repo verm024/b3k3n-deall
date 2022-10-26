@@ -21,24 +21,18 @@ function App() {
       <div className="App">
         <GlobalStyles />
         <Container
-          display="block"
+          display="flex"
           alignItems="center"
-          justifyContent="center"
-          width="90%"
+          justifyContent="space-between"
+          width="95%"
           margin="auto"
         >
-          <Text italic textType="h2">
-            Halo
-          </Text>
-          <Spacer size={64} />
-          <Tag onClick={() => alert("clicked")} cursor="pointer">
-            Haloo
-          </Tag>
-          <Tag>Text yang panjang panjang</Tag>
-          <Test color="red" />
+          <p>test</p>
+          <p>test</p>
         </Container>
-
-        <GlobalRoutes />
+        <Container width="90%" margin="auto">
+          <GlobalRoutes />
+        </Container>
       </div>
     </Router>
   );
