@@ -6,7 +6,7 @@ import GlobalStyles from "./utils/globalStyles";
 import { BrowserRouter as Router } from "react-router-dom";
 import GlobalRoutes from "./routes/GlobalRoutes";
 
-import { Text, Container } from "./components/atom";
+import { Text, Container, Spacer } from "./components/atom";
 import { Tag } from "./components/molecules";
 
 const Test = styled.div<{ color: string }>`
@@ -30,6 +30,7 @@ function App() {
           <Text italic textType="h2">
             Halo
           </Text>
+          <Spacer size={64} />
           <Tag onClick={() => alert("clicked")} cursor="pointer">
             Haloo
           </Tag>
