@@ -25,9 +25,7 @@ module.exports = {
     sourceType: "module",
   },
   plugins: ["react", "@typescript-eslint", "import"],
-  rules: {
-    indent: ["warn", 2],
-  },
+  rules: {},
   settings: {
     react: {
       version: "detect",
