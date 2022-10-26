@@ -8,7 +8,7 @@ type ButtonTextType = "btn";
 type Tag = HeadingTextType | "span" | "p";
 
 interface TextProps {
-  children: string;
+  children: React.ReactNode;
   textType?: HeadingTextType | BodyTextType | ButtonTextType;
   bold?: boolean;
   color?: string;
