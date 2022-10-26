@@ -8,19 +8,21 @@ type ButtonTextType = "btn";
 type Tag = HeadingTextType | "span" | "p";
 
 interface TextProps {
-  children: string;
+  children: React.ReactNode;
   textType?: HeadingTextType | BodyTextType | ButtonTextType;
   bold?: boolean;
   color?: string;
   italic?: boolean;
+  textAlign?: string;
 }
 
 function getMainStyles() {
   return css<TextProps>`
     ${({ textType }) => getTextStyle(textType || "b1")}
-    ${({ bold }) => bold && "font-weight: bold;"}
+    font-weight: ${({ bold }) => (bold ? "bold" : "normal")};
     ${({ color }) => `color: ${color};`}
     ${({ italic }) => italic && "font-style: italic;"}
+    ${({ textAlign }) => `text-align: ${textAlign};`}
   `;
 }
 
@@ -138,6 +140,7 @@ const Text = ({
   bold = false,
   color = "black",
   italic = false,
+  textAlign = "left",
 }: TextProps) => {
   const tag = getElementTag(textType);
   const ChosenTextElement = textElements[tag as Capitalize<Tag>];
@@ -148,6 +151,7 @@ const Text = ({
       color={color}
       textType={textType}
       italic={italic}
+      textAlign={textAlign}
     >
       {children}
     </ChosenTextElement>

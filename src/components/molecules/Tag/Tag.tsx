@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Text } from "../../atom";
 
 interface TagProps {
-  children: string;
+  children: React.ReactNode;
 }
 
 interface WrapperProps {
