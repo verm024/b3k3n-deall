@@ -12,6 +12,7 @@ interface ContainerProps {
   height?: string;
   margin?: string;
   padding?: string;
+  textAlign?: string;
 }
 
 const ContainerDiv = styled.div<ContainerProps>`
@@ -23,6 +24,7 @@ const ContainerDiv = styled.div<ContainerProps>`
   margin: ${({ margin }) => margin || "0"};
   padding: ${({ padding }) => padding || "0"};
   flex-direction: ${({ flexDirection }) => flexDirection || "row"};
+  text-align: ${({ textAlign }) => textAlign || "left"};
 `;
 
 const Container = ({ children, ...rest }: ContainerProps) => {

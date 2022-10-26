@@ -4,8 +4,11 @@ import { useNavigate } from "react-router-dom";
 import { Text, Container, Spacer } from "../../components/atom";
 import { Tag } from "../../components/molecules";
 
+import { useResponsive } from "../../hooks";
+
 const Home = () => {
   const navigate = useNavigate();
+  const { isMobile } = useResponsive();
 
   const categories = [
     {
@@ -24,6 +27,18 @@ const Home = () => {
       id: "4",
       name: "Category Shi",
     },
+    {
+      id: "5",
+      name: "Category Shi",
+    },
+    {
+      id: "6",
+      name: "Category Shi",
+    },
+    {
+      id: "7",
+      name: "Category Shi",
+    },
   ];
   return (
     <Container
@@ -33,14 +48,26 @@ const Home = () => {
       height="100vh"
       flexDirection="column"
     >
-      <Text textType="h2" color="#6c31f5" bold>
+      <Text
+        textType={isMobile ? "h3" : "h2"}
+        color="#6c31f5"
+        bold
+        textAlign={isMobile ? "center" : "left"}
+      >
         EXPLORE CATEGORIES
       </Text>
-      <Text textType="h5">What book category would you like to see?</Text>
-      <Spacer size={12} />
-      <Container>
+      <Spacer size={8} />
+      <Text
+        textType={isMobile ? "h6" : "h5"}
+        textAlign={isMobile ? "center" : "left"}
+      >
+        What book category would you like to see?
+      </Text>
+      <Spacer size={20} />
+      <Container textAlign={isMobile ? "center" : "left"}>
         {categories.map((category, index) => (
           <>
+            {index > 0 && <Spacer size={4} inline />}
             <Tag
               cursor="pointer"
               key={category.id}
@@ -51,7 +78,7 @@ const Home = () => {
             >
               {category.name}
             </Tag>
-            {index < categories.length - 1 && <Spacer size={8} inline />}
+            {index < categories.length - 1 && <Spacer size={4} inline />}
           </>
         ))}
       </Container>
