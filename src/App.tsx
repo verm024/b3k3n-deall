@@ -1,19 +1,11 @@
 import React from "react";
 
-import styled from "styled-components";
 import GlobalStyles from "./utils/globalStyles";
 
 import { BrowserRouter as Router } from "react-router-dom";
 import GlobalRoutes from "./routes/GlobalRoutes";
 
-import { Text, Container, Spacer } from "./components/atom";
-import { Tag } from "./components/molecules";
-
-const Test = styled.div<{ color: string }>`
-  width: 100px;
-  height: 100px;
-  background: ${({ color }) => color};
-`;
+import { Container } from "./components/atom";
 
 function App() {
   return (
