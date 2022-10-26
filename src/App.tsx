@@ -6,7 +6,7 @@ import GlobalStyles from "./utils/globalStyles";
 import { BrowserRouter as Router } from "react-router-dom";
 import GlobalRoutes from "./routes/GlobalRoutes";
 
-import { Text } from "./components/atom";
+import { Text, Container } from "./components/atom";
 import { Tag } from "./components/molecules";
 
 const Test = styled.div<{ color: string }>`
@@ -20,14 +20,23 @@ function App() {
     <Router>
       <div className="App">
         <GlobalStyles />
-        <Text italic textType="h2">
-          Halo
-        </Text>
-        <Tag onClick={() => alert("clicked")} cursor="pointer">
-          Haloo
-        </Tag>
-        <Tag>Text yang panjang panjang</Tag>
-        <Test color="red" />
+        <Container
+          display="block"
+          alignItems="center"
+          justifyContent="center"
+          width="90%"
+          margin="auto"
+        >
+          <Text italic textType="h2">
+            Halo
+          </Text>
+          <Tag onClick={() => alert("clicked")} cursor="pointer">
+            Haloo
+          </Tag>
+          <Tag>Text yang panjang panjang</Tag>
+          <Test color="red" />
+        </Container>
+
         <GlobalRoutes />
       </div>
     </Router>
