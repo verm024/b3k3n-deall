@@ -1,45 +1,29 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import { useQuery } from "react-query";
 
 import { Text, Container, Spacer } from "../../components/atom";
 import { Tag } from "../../components/molecules";
 
 import { useResponsive } from "../../hooks";
 
+interface Category {
+  id: string;
+  name: string;
+}
+
 const Home = () => {
   const navigate = useNavigate();
   const { isMobile } = useResponsive();
 
-  const categories = [
-    {
-      id: "1",
-      name: "Category Ichi",
-    },
-    {
-      id: "2",
-      name: "Category Ni",
-    },
-    {
-      id: "3",
-      name: "Category San",
-    },
-    {
-      id: "4",
-      name: "Category Shi",
-    },
-    {
-      id: "5",
-      name: "Category Shi",
-    },
-    {
-      id: "6",
-      name: "Category Shi",
-    },
-    {
-      id: "7",
-      name: "Category Shi",
-    },
-  ];
+  const { data = [] } = useQuery("category", async () => {
+    const res = await fetch("fee-assessment-categories");
+    if (!res.ok) {
+      throw new Error("Fetch Error");
+    }
+    return await res.json();
+  });
+
   return (
     <Container
       display="flex"
@@ -65,12 +49,11 @@ const Home = () => {
       </Text>
       <Spacer size={20} />
       <Container textAlign={isMobile ? "center" : "left"}>
-        {categories.map((category, index) => (
-          <>
+        {data.map((category: Category, index: number) => (
+          <React.Fragment key={category.id}>
             {index > 0 && <Spacer size={4} inline />}
             <Tag
               cursor="pointer"
-              key={category.id}
               onClick={() => {
                 navigate(`/category/${category.id}`);
               }}
@@ -78,8 +61,8 @@ const Home = () => {
             >
               {category.name}
             </Tag>
-            {index < categories.length - 1 && <Spacer size={4} inline />}
-          </>
+            {index < data.length - 1 && <Spacer size={4} inline />}
+          </React.Fragment>
         ))}
       </Container>
     </Container>
