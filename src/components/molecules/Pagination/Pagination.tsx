@@ -21,7 +21,7 @@ const StyledContainer = styled(Container)`
 
 const StyledFontAwesomeIcon = styled(FontAwesomeIcon)`
   &:hover {
-    transform: scale(1.2);
+    transform: scale(1.1);
   }
 `;
 
@@ -54,7 +54,7 @@ const Pagination = ({ currentPage, onChangePage }: PaginationProps) => {
         <StyledFontAwesomeIcon
           icon={faChevronCircleLeft}
           color="#6c31f5"
-          size="xl"
+          size="2xl"
         />
       </StyledContainer>
       <Spacer size={24} />
@@ -79,7 +79,7 @@ const Pagination = ({ currentPage, onChangePage }: PaginationProps) => {
         <StyledFontAwesomeIcon
           icon={faChevronCircleRight}
           color="#6c31f5"
-          size="xl"
+          size="2xl"
         />
       </StyledContainer>
     </Container>

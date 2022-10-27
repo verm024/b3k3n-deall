@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import { BookProps } from "../../../utils/constants";
 
-import { Container, Spacer } from "../../atom";
+import { Container, Spacer, Text } from "../../atom";
 import { BookCard } from "../../molecules";
 
 interface BookListProps {
@@ -29,7 +29,7 @@ const BookList = ({ data = [], onBookClick, col = 4 }: BookListProps) => {
 
   return (
     <Container width="100%">
-      {data.length > 0 &&
+      {mappedBook.length > 0 &&
         mappedBook.map((row: BookProps[], index: number) => (
           <React.Fragment key={index}>
             <Spacer size={24} />
@@ -51,9 +51,23 @@ const BookList = ({ data = [], onBookClick, col = 4 }: BookListProps) => {
                   }}
                 />
               ))}
+              {index === mappedBook.length - 1 &&
+                Array(col - row.length < 0 ? 0 : col - row.length)
+                  .fill(0)
+                  .map((_, index: number) => (
+                    <Container width="260px" height="466px" key={index} />
+                  ))}
             </Container>
           </React.Fragment>
         ))}
+      {mappedBook.length === 0 && (
+        <>
+          <Spacer size={24} />
+          <Text textType="b1" textAlign="center">
+            There is nothing here.
+          </Text>
+        </>
+      )}
     </Container>
   );
 };
