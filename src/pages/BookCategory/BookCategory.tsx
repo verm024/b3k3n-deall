@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 
-import { Input, Image } from "../../components/atom";
+import { Input, Container } from "../../components/atom";
+import { BookCard } from "../../components/molecules";
 
 const BookCategory = () => {
   const [inputState, setInputState] = useState<string>("");
@@ -17,13 +18,24 @@ const BookCategory = () => {
         value={inputState}
         onChange={handleInputChange}
         placeholder="Halo"
-        width="90%"
+        width="100%"
       />
-      <Image
-        src="https://cdn.sejutacita.id/6138d21e3a09ee0013ee730f/Booku/c55ef13f-eb0e-40de-a04c-e46df5940682.png"
-        width="200px"
-        height="100px"
-      />
+      <Container display="flex" justifyContent="space-between" width="100%">
+        {/* isXLScreen: 4 col */}
+        {/* isLgScreen: 3 col */}
+        {/* Tablet: 2 col */}
+        {/* Mobile: 1 col */}
+        <BookCard
+          imageSrc="https://cdn.sejutacita.id/6138d21e3a09ee0013ee730f/Booku/c55ef13f-eb0e-40de-a04c-e46df5940682.png"
+          title="Title Book Yang Agak Panjangan Dikit"
+          author="Benjamin Button, Benjamin Cook, and Benjamin Sarabi"
+        />
+        <BookCard
+          imageSrc="https://cdn.sejutacita.id/6138d21e3a09ee0013ee730f/Booku/c55ef13f-eb0e-40de-a04c-e46df5940682.png"
+          title="Title Book Yang Agak Panjangan Dikit"
+          author="Benjamin Button"
+        />
+      </Container>
       <p>{inputState}</p>
     </div>
   );
