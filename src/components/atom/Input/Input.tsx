@@ -2,11 +2,7 @@ import React from "react";
 
 import styled from "styled-components";
 
-interface InputProps {
-  value: string;
-  placeholder?: string;
-  onChange?: (e: React.ChangeEvent) => void;
-  width?: string;
+interface InputProps extends React.InputHTMLAttributes<HTMLInputElement> {
   display?: string;
 }
 
