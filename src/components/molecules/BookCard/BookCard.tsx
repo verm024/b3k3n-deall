@@ -38,11 +38,13 @@ const BookCard = ({ title, author, imageSrc }: BookCardProps) => {
     >
       <StyledImage src={imageSrc} width="100%" />
       <Spacer size={12} />
-      <Text textType="b1" bold color="#6c31f5">
+      <Text textType="b1" bold color="#6c31f5" lineClamp={2}>
         {title}
       </Text>
       <Spacer size={4} />
-      <Text textType="b2">{author}</Text>
+      <Text textType="b2" lineClamp={2}>
+        {author}
+      </Text>
     </StyledContainer>
   );
 };

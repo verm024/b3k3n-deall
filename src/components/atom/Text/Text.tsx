@@ -14,6 +14,7 @@ interface TextProps {
   color?: string;
   italic?: boolean;
   textAlign?: string;
+  lineClamp?: number;
 }
 
 function getMainStyles() {
@@ -23,6 +24,15 @@ function getMainStyles() {
     ${({ color }) => `color: ${color};`}
     ${({ italic }) => italic && "font-style: italic;"}
     ${({ textAlign }) => `text-align: ${textAlign};`}
+    ${({ lineClamp }) =>
+      lineClamp
+        ? `
+            overflow: hidden;
+            display: -webkit-box;
+            -webkit-line-clamp: ${lineClamp};
+            -webkit-box-orient: vertical;
+          `
+        : ""}
   `;
 }
 
@@ -141,6 +151,7 @@ const Text = ({
   color = "black",
   italic = false,
   textAlign = "left",
+  lineClamp,
 }: TextProps) => {
   const tag = getElementTag(textType);
   const ChosenTextElement = textElements[tag as Capitalize<Tag>];
@@ -152,6 +163,7 @@ const Text = ({
       textType={textType}
       italic={italic}
       textAlign={textAlign}
+      lineClamp={lineClamp}
     >
       {children}
     </ChosenTextElement>
