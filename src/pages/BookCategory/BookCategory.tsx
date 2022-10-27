@@ -57,7 +57,7 @@ const BookCategory = () => {
       <Input
         value={inputState}
         onChange={handleInputChange}
-        placeholder="Halo"
+        placeholder="Search..."
         width="100%"
       />
       <BookList

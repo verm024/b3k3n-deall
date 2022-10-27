@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 
 import { BookProps } from "../../../utils/constants";
+import { formatAuthorsToString } from "../../../utils/helperFunctions";
 
 import { Container, Spacer, Text } from "../../atom";
 import { BookCard } from "../../molecules";
@@ -41,7 +42,7 @@ const BookList = ({ data = [], onBookClick, col = 4 }: BookListProps) => {
               {row.map((col: BookProps) => (
                 <BookCard
                   title={col.title}
-                  author={col.authors[0]}
+                  author={formatAuthorsToString(col.authors)}
                   imageSrc={col.cover_url}
                   key={col.id}
                   onClick={() => {
