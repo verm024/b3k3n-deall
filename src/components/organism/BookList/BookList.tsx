@@ -31,10 +31,9 @@ const BookList = ({ data = [], onBookClick, col = 4 }: BookListProps) => {
     <Container width="100%">
       {data.length > 0 &&
         mappedBook.map((row: BookProps[], index: number) => (
-          <>
+          <React.Fragment key={index}>
             <Spacer size={24} />
             <Container
-              key={index}
               display="flex"
               justifyContent={col === 1 ? "center" : "space-between"}
               width="100%"
@@ -53,7 +52,7 @@ const BookList = ({ data = [], onBookClick, col = 4 }: BookListProps) => {
                 />
               ))}
             </Container>
-          </>
+          </React.Fragment>
         ))}
     </Container>
   );
