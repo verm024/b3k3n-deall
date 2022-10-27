@@ -66,7 +66,11 @@ const Pagination = ({ currentPage, onChangePage }: PaginationProps) => {
           width="60px"
           type="number"
           onBlur={() => onChangePage(componentPage)}
-          onKeyDown={() => onChangePage(componentPage)}
+          onKeyDown={(e) => {
+            if (e.key === "Enter") {
+              onChangePage(componentPage);
+            }
+          }}
           min={1}
         />
       </Container>
