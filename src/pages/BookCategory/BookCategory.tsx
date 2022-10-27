@@ -24,6 +24,9 @@ const BookCategory = () => {
       />
       <BookList
         col={isMobile ? 1 : isTablet ? 2 : isLgScreen ? 3 : 4}
+        onBookClick={(book) => {
+          console.log(book);
+        }}
         data={[
           {
             id: 0,

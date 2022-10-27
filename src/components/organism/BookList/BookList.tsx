@@ -7,7 +7,7 @@ import { BookCard } from "../../molecules";
 
 interface BookListProps {
   data: BookProps[];
-  onBookClick?: () => void;
+  onBookClick?: (book: BookProps) => void;
   col?: number;
 }
 
@@ -45,6 +45,11 @@ const BookList = ({ data = [], onBookClick, col = 4 }: BookListProps) => {
                   author={col.authors[0]}
                   imageSrc={col.cover_url}
                   key={col.id}
+                  onClick={() => {
+                    if (typeof onBookClick !== "undefined") {
+                      onBookClick(col);
+                    }
+                  }}
                 />
               ))}
             </Container>

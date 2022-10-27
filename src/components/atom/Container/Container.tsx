@@ -13,6 +13,8 @@ interface ContainerProps {
   margin?: string;
   padding?: string;
   textAlign?: string;
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  onClick?: () => any;
 }
 
 const ContainerDiv = styled.div<ContainerProps>`

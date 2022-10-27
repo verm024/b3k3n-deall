@@ -8,6 +8,8 @@ interface BookCardProps {
   title: string;
   author: string;
   imageSrc: string;
+  // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+  onClick?: () => any;
 }
 
 const StyledContainer = styled(Container)`
@@ -27,7 +29,7 @@ const StyledImage = styled(Image)`
   border-radius: 10px;
 `;
 
-const BookCard = ({ title, author, imageSrc }: BookCardProps) => {
+const BookCard = ({ title, author, imageSrc, onClick }: BookCardProps) => {
   return (
     <StyledContainer
       display="flex"
@@ -35,6 +37,7 @@ const BookCard = ({ title, author, imageSrc }: BookCardProps) => {
       width="260px"
       height="466px"
       padding="24px 20px"
+      onClick={onClick}
     >
       <StyledImage src={imageSrc} width="100%" />
       <Spacer size={12} />
