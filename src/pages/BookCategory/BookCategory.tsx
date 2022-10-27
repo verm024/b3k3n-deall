@@ -2,15 +2,21 @@ import React, { useState } from "react";
 
 import { Input } from "../../components/atom";
 import { BookList } from "../../components/organism";
+import { Pagination } from "../../components/molecules";
 import { useResponsive } from "../../hooks";
 
 const BookCategory = () => {
   const { isMobile, isTablet, isLgScreen } = useResponsive();
   const [inputState, setInputState] = useState<string>("");
+  const [page, setPage] = useState<number>(1);
 
   const handleInputChange = (e: React.ChangeEvent) => {
     const target = e.target as HTMLInputElement;
     setInputState(target.value);
+  };
+
+  const handleChangePage = (newPage: number) => {
+    setPage(newPage);
   };
 
   return (
@@ -413,6 +419,10 @@ const BookCategory = () => {
           },
         ]}
       />
+      <Pagination currentPage={page} onChangePage={handleChangePage} />
+      <p>{page}</p>
+      <p>{inputState}</p>
+      <p>{inputState}</p>
       <p>{inputState}</p>
     </div>
   );
