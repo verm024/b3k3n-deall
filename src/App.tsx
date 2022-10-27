@@ -10,6 +10,7 @@ import { BrowserRouter as Router } from "react-router-dom";
 import GlobalRoutes from "./routes/GlobalRoutes";
 
 import { Container } from "./components/atom";
+import { Navbar } from "./components/molecules";
 
 function App() {
   return (
@@ -17,16 +18,7 @@ function App() {
       <Router>
         <div className="App">
           <GlobalStyles />
-          <Container
-            display="flex"
-            alignItems="center"
-            justifyContent="space-between"
-            width="95%"
-            margin="auto"
-          >
-            <p>test</p>
-            <p>test</p>
-          </Container>
+          <Navbar />
           <Container width="80%" margin="auto">
             <GlobalRoutes />
           </Container>
