@@ -20,11 +20,11 @@ const BookCategory = () => {
   const { isMobile, isTablet, isLgScreen } = useResponsive();
   const [inputState, setInputState] = useState<string>("");
   const [page, setPage] = useState<number>(1);
-  const { id } = useParams();
+  const { id: categoryId } = useParams();
 
   const { data = [] } = useQuery(["book-list", page], async () => {
     const res = await fetch(
-      `/fee-assessment-books?categoryId=${id}&page=${page}`
+      `/fee-assessment-books?categoryId=${categoryId}&page=${page}`
     );
     if (!res.ok) {
       throw new Error("Fetch Error");
