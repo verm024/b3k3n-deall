@@ -12,9 +12,6 @@ Modal.setAppElement("#root");
 
 const StyledModal = styled(Modal)`
   outline: none;
-  & .ReactModal__Overlay {
-    background-color: rgba(0, 0, 0, 0.75) !important;
-  }
 `;
 
 const StyledContainer = styled(Container)`
