@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 import { BookProps } from "../../utils/constants";
-import { Button } from "../../components/atom";
 
 import {
   Input,
@@ -14,9 +13,10 @@ import {
   Text,
   Spacer,
   CustomLink,
+  Button,
 } from "../../components/atom";
 import { BookList } from "../../components/organism";
-import { Pagination, CustomModal } from "../../components/molecules";
+import { Pagination, CustomModal, Accordion } from "../../components/molecules";
 import { useResponsive } from "../../hooks";
 
 const BookCategory = () => {
@@ -25,6 +25,13 @@ const BookCategory = () => {
   const [page, setPage] = useState<number>(1);
   const [modalData, setModalData] = useState<BookProps>();
   const { id: categoryId } = useParams();
+
+  const [accordionState, setAccordionState] = useState<any[]>([
+    false,
+    false,
+    false,
+    false,
+  ]);
 
   const { data = [] } = useQuery(["book-list", page], async () => {
     const res = await fetch(
@@ -51,6 +58,14 @@ const BookCategory = () => {
 
   const handleCloseBookModal = () => {
     setModalData(undefined);
+  };
+
+  const handleAccordionClick = (index: number) => {
+    setAccordionState((prevState) => {
+      const state = [...prevState];
+      state[index] = !state[index];
+      return state;
+    });
   };
 
   return (
@@ -86,6 +101,15 @@ const BookCategory = () => {
         <Button variant="primary" onClick={() => alert("hahahaha")}>
           Test
         </Button>
+        {accordionState.map((_, index) => (
+          <Accordion
+            title={"Accordion nih boss" + index}
+            content={"Tes" + index}
+            key={index}
+            onAccordionClick={() => handleAccordionClick(index)}
+            isOpen={accordionState[index]}
+          />
+        ))}
       </CustomModal>
     </Container>
   );
