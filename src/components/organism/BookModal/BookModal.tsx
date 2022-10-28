@@ -97,16 +97,15 @@ const BookModal = ({ modalData, handleClose, onBookmark }: BookModalProps) => {
         What’s inside?
       </Text>
       {modalData?.sections.map((section, index) => (
-        <>
+        <React.Fragment key={index}>
           <Spacer size={8} />
           <Accordion
             title={index + 1 + ". " + section.title}
             content={section.content}
-            key={index}
             onAccordionClick={() => handleAccordionClick(index)}
             isOpen={accordionState[index]}
           />
-        </>
+        </React.Fragment>
       ))}
     </CustomModal>
   );

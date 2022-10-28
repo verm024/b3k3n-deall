@@ -12,20 +12,26 @@ import GlobalRoutes from "./routes/GlobalRoutes";
 import { Container } from "./components/atom";
 import { Navbar } from "./components/molecules";
 
+import { store, persistor } from "./store";
+import { Provider as ReduxProvider } from "react-redux";
+import { PersistGate } from "redux-persist/lib/integration/react";
+
 function App() {
   return (
-    <QueryClientProvider client={queryClient}>
-      <Router>
-        <div className="App">
-          <GlobalStyles />
-          <Navbar />
-          <Container width="80%" margin="auto">
-            <GlobalRoutes />
-          </Container>
-        </div>
-      </Router>
-      <ReactQueryDevtools />
-    </QueryClientProvider>
+    <ReduxProvider store={store}>
+      <PersistGate persistor={persistor}>
+        <QueryClientProvider client={queryClient}>
+          <Router>
+            <GlobalStyles />
+            <Navbar />
+            <Container width="80%" margin="auto">
+              <GlobalRoutes />
+            </Container>
+          </Router>
+          <ReactQueryDevtools />
+        </QueryClientProvider>
+      </PersistGate>
+    </ReduxProvider>
   );
 }
 
