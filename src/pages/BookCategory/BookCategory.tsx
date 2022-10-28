@@ -6,6 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 import { BookProps } from "../../utils/constants";
+import { Button } from "../../components/atom";
 
 import {
   Input,
@@ -82,7 +83,9 @@ const BookCategory = () => {
         isOpen={modalData !== undefined}
         onRequestClose={handleCloseBookModal}
       >
-        <Text>Test</Text>
+        <Button variant="primary" onClick={() => alert("hahahaha")}>
+          Test
+        </Button>
       </CustomModal>
     </Container>
   );
