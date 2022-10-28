@@ -1,6 +1,17 @@
 import React, { useState } from "react";
+import { useQuery } from "react-query";
+import { useParams } from "react-router-dom";
 
-import { Input } from "../../components/atom";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
+
+import {
+  Input,
+  Container,
+  Text,
+  Spacer,
+  CustomLink,
+} from "../../components/atom";
 import { BookList } from "../../components/organism";
 import { Pagination } from "../../components/molecules";
 import { useResponsive } from "../../hooks";
@@ -9,6 +20,17 @@ const BookCategory = () => {
   const { isMobile, isTablet, isLgScreen } = useResponsive();
   const [inputState, setInputState] = useState<string>("");
   const [page, setPage] = useState<number>(1);
+  const { id: categoryId } = useParams();
+
+  const { data = [] } = useQuery(["book-list", page], async () => {
+    const res = await fetch(
+      `/fee-assessment-books?categoryId=${categoryId}&page=${page}`
+    );
+    if (!res.ok) {
+      throw new Error("Fetch Error");
+    }
+    return await res.json();
+  });
 
   const handleInputChange = (e: React.ChangeEvent) => {
     const target = e.target as HTMLInputElement;
@@ -20,12 +42,22 @@ const BookCategory = () => {
   };
 
   return (
-    <div>
-      <p>Book Category Page</p>
+    <Container padding="100px 0 80px 0" width="100%">
+      <Container width="100%" display="flex" alignItems="center">
+        {/* eslint-disable-next-line  @typescript-eslint/no-explicit-any */}
+        <CustomLink to={-1 as any}>
+          <FontAwesomeIcon icon={faChevronLeft} color="black" size="sm" />
+        </CustomLink>
+        <Spacer size={8} inline />
+        <Text textType="h6" bold>
+          Test
+        </Text>
+      </Container>
+      <Spacer size={8} inline />
       <Input
         value={inputState}
         onChange={handleInputChange}
-        placeholder="Halo"
+        placeholder="Search..."
         width="100%"
       />
       <BookList
@@ -33,398 +65,11 @@ const BookCategory = () => {
         onBookClick={(book) => {
           console.log(book);
         }}
-        data={[
-          {
-            id: 0,
-            title: "The Intelligent Investor",
-            category_id: 1,
-            authors: ["Benjamin Graham"],
-            cover_url:
-              "https://cdn.sejutacita.id/6138d21e3a09ee0013ee730f/Booku/c55ef13f-eb0e-40de-a04c-e46df5940682.png",
-            description:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur vo",
-            sections: [
-              {
-                title: "Intro",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. ",
-              },
-              {
-                title: "The story of Mr. Market",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum",
-              },
-              {
-                title: "Are you a speculator?",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed od",
-              },
-              {
-                title: "The basic principles",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n       optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis\n       obcaecati tenetur ",
-              },
-              {
-                title: "Starting your career",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n       optio, eaque rerum! Provident similique accusantium nemo autem. Veritatis\n       obcaecati t",
-              },
-              {
-                title: "Ending your career",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat i",
-              },
-              {
-                title: "Final notes",
-                content: "Lorem ipsum dolor s",
-              },
-            ],
-            audio_length: 840,
-          },
-          {
-            id: 1,
-            title: "Eat to Live",
-            category_id: 1,
-            authors: ["Joel Fuhrman"],
-            cover_url:
-              "https://cdn.sejutacita.id/60594de91882d200135bd833/Booku/bec21735-9392-4694-9805-1ba929f03f1b.jpeg",
-            description:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Max",
-            sections: [
-              {
-                title: "Eat high-nutritious food",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum",
-              },
-              {
-                title: "The societal myths",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n       optio, eaque rerum! Provident similique accusantium nemo aut",
-              },
-              {
-                title: "The daily menu",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam",
-              },
-              {
-                title: "The benefetial impacts",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n      ",
-              },
-              {
-                title: "The implementation",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n       optio, eaque rerum! Provident similique accusantium ",
-              },
-              {
-                title: "Final notes",
-                content: "Lorem ipsum dolor sit ",
-              },
-            ],
-            audio_length: 3972,
-          },
-          {
-            id: 2,
-            title: "Eat to Live",
-            category_id: 1,
-            authors: ["Joel Fuhrman"],
-            cover_url:
-              "https://cdn.sejutacita.id/60594de91882d200135bd833/Booku/bec21735-9392-4694-9805-1ba929f03f1b.jpeg",
-            description:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Max",
-            sections: [
-              {
-                title: "Eat high-nutritious food",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum",
-              },
-              {
-                title: "The societal myths",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n       optio, eaque rerum! Provident similique accusantium nemo aut",
-              },
-              {
-                title: "The daily menu",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam",
-              },
-              {
-                title: "The benefetial impacts",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n      ",
-              },
-              {
-                title: "The implementation",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n       optio, eaque rerum! Provident similique accusantium ",
-              },
-              {
-                title: "Final notes",
-                content: "Lorem ipsum dolor sit ",
-              },
-            ],
-            audio_length: 3972,
-          },
-          {
-            id: 3,
-            title: "Eat to Live",
-            category_id: 1,
-            authors: ["Joel Fuhrman"],
-            cover_url:
-              "https://cdn.sejutacita.id/60594de91882d200135bd833/Booku/bec21735-9392-4694-9805-1ba929f03f1b.jpeg",
-            description:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Max",
-            sections: [
-              {
-                title: "Eat high-nutritious food",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum",
-              },
-              {
-                title: "The societal myths",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n       optio, eaque rerum! Provident similique accusantium nemo aut",
-              },
-              {
-                title: "The daily menu",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam",
-              },
-              {
-                title: "The benefetial impacts",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n      ",
-              },
-              {
-                title: "The implementation",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n       optio, eaque rerum! Provident similique accusantium ",
-              },
-              {
-                title: "Final notes",
-                content: "Lorem ipsum dolor sit ",
-              },
-            ],
-            audio_length: 3972,
-          },
-          {
-            id: 4,
-            title: "Eat to Live",
-            category_id: 1,
-            authors: ["Joel Fuhrman"],
-            cover_url:
-              "https://cdn.sejutacita.id/60594de91882d200135bd833/Booku/bec21735-9392-4694-9805-1ba929f03f1b.jpeg",
-            description:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Max",
-            sections: [
-              {
-                title: "Eat high-nutritious food",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum",
-              },
-              {
-                title: "The societal myths",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n       optio, eaque rerum! Provident similique accusantium nemo aut",
-              },
-              {
-                title: "The daily menu",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam",
-              },
-              {
-                title: "The benefetial impacts",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n      ",
-              },
-              {
-                title: "The implementation",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n       optio, eaque rerum! Provident similique accusantium ",
-              },
-              {
-                title: "Final notes",
-                content: "Lorem ipsum dolor sit ",
-              },
-            ],
-            audio_length: 3972,
-          },
-          {
-            id: 5,
-            title: "Eat to Live",
-            category_id: 1,
-            authors: ["Joel Fuhrman"],
-            cover_url:
-              "https://cdn.sejutacita.id/60594de91882d200135bd833/Booku/bec21735-9392-4694-9805-1ba929f03f1b.jpeg",
-            description:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Max",
-            sections: [
-              {
-                title: "Eat high-nutritious food",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum",
-              },
-              {
-                title: "The societal myths",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n       optio, eaque rerum! Provident similique accusantium nemo aut",
-              },
-              {
-                title: "The daily menu",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam",
-              },
-              {
-                title: "The benefetial impacts",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n      ",
-              },
-              {
-                title: "The implementation",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n       optio, eaque rerum! Provident similique accusantium ",
-              },
-              {
-                title: "Final notes",
-                content: "Lorem ipsum dolor sit ",
-              },
-            ],
-            audio_length: 3972,
-          },
-          {
-            id: 6,
-            title: "Eat to Live",
-            category_id: 1,
-            authors: ["Joel Fuhrman"],
-            cover_url:
-              "https://cdn.sejutacita.id/60594de91882d200135bd833/Booku/bec21735-9392-4694-9805-1ba929f03f1b.jpeg",
-            description:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Max",
-            sections: [
-              {
-                title: "Eat high-nutritious food",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum",
-              },
-              {
-                title: "The societal myths",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n       optio, eaque rerum! Provident similique accusantium nemo aut",
-              },
-              {
-                title: "The daily menu",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam",
-              },
-              {
-                title: "The benefetial impacts",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n      ",
-              },
-              {
-                title: "The implementation",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n       optio, eaque rerum! Provident similique accusantium ",
-              },
-              {
-                title: "Final notes",
-                content: "Lorem ipsum dolor sit ",
-              },
-            ],
-            audio_length: 3972,
-          },
-          {
-            id: 7,
-            title: "Eat to Live",
-            category_id: 1,
-            authors: ["Joel Fuhrman"],
-            cover_url:
-              "https://cdn.sejutacita.id/60594de91882d200135bd833/Booku/bec21735-9392-4694-9805-1ba929f03f1b.jpeg",
-            description:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Max",
-            sections: [
-              {
-                title: "Eat high-nutritious food",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum",
-              },
-              {
-                title: "The societal myths",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n       optio, eaque rerum! Provident similique accusantium nemo aut",
-              },
-              {
-                title: "The daily menu",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam",
-              },
-              {
-                title: "The benefetial impacts",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n      ",
-              },
-              {
-                title: "The implementation",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n       optio, eaque rerum! Provident similique accusantium ",
-              },
-              {
-                title: "Final notes",
-                content: "Lorem ipsum dolor sit ",
-              },
-            ],
-            audio_length: 3972,
-          },
-          {
-            id: 8,
-            title: "Eat to Live",
-            category_id: 1,
-            authors: ["Joel Fuhrman"],
-            cover_url:
-              "https://cdn.sejutacita.id/60594de91882d200135bd833/Booku/bec21735-9392-4694-9805-1ba929f03f1b.jpeg",
-            description:
-              "Lorem ipsum dolor sit amet consectetur adipisicing elit. Max",
-            sections: [
-              {
-                title: "Eat high-nutritious food",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum",
-              },
-              {
-                title: "The societal myths",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n       optio, eaque rerum! Provident similique accusantium nemo aut",
-              },
-              {
-                title: "The daily menu",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam",
-              },
-              {
-                title: "The benefetial impacts",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n      ",
-              },
-              {
-                title: "The implementation",
-                content:
-                  "Lorem ipsum dolor sit amet consectetur adipisicing elit. Maxime mollitia,\n       molestiae quas vel sint commodi repudiandae consequuntur voluptatum laborum\n       numquam blanditiis harum quisquam eius sed odit fugiat iusto fuga praesentium\n       optio, eaque rerum! Provident similique accusantium ",
-              },
-              {
-                title: "Final notes",
-                content: "Lorem ipsum dolor sit ",
-              },
-            ],
-            audio_length: 3972,
-          },
-        ]}
+        data={data}
       />
+      <Spacer size={52} />
       <Pagination currentPage={page} onChangePage={handleChangePage} />
-      <p>{page}</p>
-      <p>{inputState}</p>
-      <p>{inputState}</p>
-      <p>{inputState}</p>
-    </div>
+    </Container>
   );
 };
 
