@@ -3,3 +3,4 @@ export { default as BookCard } from "./BookCard";
 export { default as Navbar } from "./Navbar";
 export { default as Pagination } from "./Pagination";
 export { default as CustomModal } from "./CustomModal";
+export { default as Accordion } from "./Accordion";
