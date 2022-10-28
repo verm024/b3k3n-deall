@@ -5,6 +5,8 @@ import { useParams } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
+import { BookProps } from "../../utils/constants";
+
 import {
   Input,
   Container,
@@ -13,13 +15,14 @@ import {
   CustomLink,
 } from "../../components/atom";
 import { BookList } from "../../components/organism";
-import { Pagination } from "../../components/molecules";
+import { Pagination, CustomModal } from "../../components/molecules";
 import { useResponsive } from "../../hooks";
 
 const BookCategory = () => {
   const { isMobile, isTablet, isLgScreen } = useResponsive();
   const [inputState, setInputState] = useState<string>("");
   const [page, setPage] = useState<number>(1);
+  const [modalData, setModalData] = useState<BookProps>();
   const { id: categoryId } = useParams();
 
   const { data = [] } = useQuery(["book-list", page], async () => {
@@ -39,6 +42,14 @@ const BookCategory = () => {
 
   const handleChangePage = (newPage: number) => {
     setPage(newPage);
+  };
+
+  const handleBookClick = (book: BookProps) => {
+    setModalData(book);
+  };
+
+  const handleCloseBookModal = () => {
+    setModalData(undefined);
   };
 
   return (
@@ -62,13 +73,17 @@ const BookCategory = () => {
       />
       <BookList
         col={isMobile ? 1 : isTablet ? 2 : isLgScreen ? 3 : 4}
-        onBookClick={(book) => {
-          console.log(book);
-        }}
+        onBookClick={handleBookClick}
         data={data}
       />
       <Spacer size={52} />
       <Pagination currentPage={page} onChangePage={handleChangePage} />
+      <CustomModal
+        isOpen={modalData !== undefined}
+        onRequestClose={handleCloseBookModal}
+      >
+        <Text>Test</Text>
+      </CustomModal>
     </Container>
   );
 };

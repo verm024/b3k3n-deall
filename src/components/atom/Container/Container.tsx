@@ -14,7 +14,7 @@ interface ContainerProps {
   padding?: string;
   textAlign?: string;
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-  onClick?: () => any;
+  onClick?: (e: React.MouseEvent<Element, MouseEvent>) => any;
 }
 
 const ContainerDiv = styled.div<ContainerProps>`
