@@ -13,10 +13,9 @@ import {
   Text,
   Spacer,
   CustomLink,
-  Button,
 } from "../../components/atom";
-import { BookList } from "../../components/organism";
-import { Pagination, CustomModal, Accordion } from "../../components/molecules";
+import { BookList, BookModal } from "../../components/organism";
+import { Pagination } from "../../components/molecules";
 import { useResponsive } from "../../hooks";
 
 const BookCategory = () => {
@@ -25,13 +24,6 @@ const BookCategory = () => {
   const [page, setPage] = useState<number>(1);
   const [modalData, setModalData] = useState<BookProps>();
   const { id: categoryId } = useParams();
-
-  const [accordionState, setAccordionState] = useState<any[]>([
-    false,
-    false,
-    false,
-    false,
-  ]);
 
   const { data = [] } = useQuery(["book-list", page], async () => {
     const res = await fetch(
@@ -60,14 +52,6 @@ const BookCategory = () => {
     setModalData(undefined);
   };
 
-  const handleAccordionClick = (index: number) => {
-    setAccordionState((prevState) => {
-      const state = [...prevState];
-      state[index] = !state[index];
-      return state;
-    });
-  };
-
   return (
     <Container padding="100px 0 80px 0" width="100%">
       <Container width="100%" display="flex" alignItems="center">
@@ -94,23 +78,13 @@ const BookCategory = () => {
       />
       <Spacer size={52} />
       <Pagination currentPage={page} onChangePage={handleChangePage} />
-      <CustomModal
-        isOpen={modalData !== undefined}
-        onRequestClose={handleCloseBookModal}
-      >
-        <Button variant="primary" onClick={() => alert("hahahaha")}>
-          Test
-        </Button>
-        {accordionState.map((_, index) => (
-          <Accordion
-            title={"Accordion nih boss" + index}
-            content={"Tes" + index}
-            key={index}
-            onAccordionClick={() => handleAccordionClick(index)}
-            isOpen={accordionState[index]}
-          />
-        ))}
-      </CustomModal>
+      <BookModal
+        modalData={modalData}
+        handleClose={() => handleCloseBookModal()}
+        onBookmark={() => {
+          console.log(modalData);
+        }}
+      />
     </Container>
   );
 };

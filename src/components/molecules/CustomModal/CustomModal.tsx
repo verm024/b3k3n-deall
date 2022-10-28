@@ -73,7 +73,7 @@ const CustomModal = ({
           </IconContainer>
         </HeaderContainer>
         <Spacer size={12} />
-        <ContentContainer width="100%" height={action ? "85%" : "90%"}>
+        <ContentContainer width="100%" height={action ? "80%" : "90%"}>
           {children}
         </ContentContainer>
         <Spacer size={24} />
