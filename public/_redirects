@@ -1,2 +1,2 @@
-/api/*    https://asia-southeast2-sejutacita-app.cloudfunctions.net    200
+/api/*    https://asia-southeast2-sejutacita-app.cloudfunctions.net/:splat    200
 /*        /index.html    200

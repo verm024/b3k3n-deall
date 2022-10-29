@@ -46,7 +46,7 @@ const BookCategory = () => {
 
   const { data = [] } = useQuery(["book-list", categoryId, page], async () => {
     const res = await fetch(
-      `/fee-assessment-books?categoryId=${categoryId}&page=${page}`
+      `api/fee-assessment-books?categoryId=${categoryId}&page=${page}`
     );
     if (!res.ok) {
       throw new Error("Fetch Error");
