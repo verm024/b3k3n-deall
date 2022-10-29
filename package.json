@@ -1,7 +1,6 @@
 {
   "name": "b3k3n",
   "version": "0.1.0",
-  "homepage": "https://verm024.github.io/b3k3n-deall",
   "private": true,
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.2.0",
