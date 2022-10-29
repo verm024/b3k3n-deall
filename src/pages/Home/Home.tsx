@@ -18,7 +18,9 @@ const Home = () => {
 
   const { data = [] } = useQuery("category", async () => {
     const res = await fetch(
-      `${window.location.origin}/api/fee-assessment-categories`
+      process.env.NODE_ENV === "development"
+        ? "/fee-assessment-categories"
+        : `${window.location.origin}/api/fee-assessment-categories`
     );
     if (!res.ok) {
       throw new Error("Fetch Error");
