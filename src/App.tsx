@@ -19,7 +19,7 @@ import { PersistGate } from "redux-persist/lib/integration/react";
 function App() {
   return (
     <ReduxProvider store={store}>
-      <PersistGate persistor={persistor}>
+      <PersistGate loading={null} persistor={persistor}>
         <QueryClientProvider client={queryClient}>
           <Router>
             <GlobalStyles />

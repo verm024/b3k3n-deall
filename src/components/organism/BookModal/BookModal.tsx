@@ -5,6 +5,10 @@ import styled from "styled-components";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faBook, faHeadphonesSimple } from "@fortawesome/free-solid-svg-icons";
 
+import { useSelector } from "react-redux";
+import { selectBookInBookmarkById } from "../../../store/selectors/bookmarkSelector";
+import { RootState } from "../../../store/store";
+
 import { Button, Image, Container, Spacer, Text } from "../../atom";
 import { CustomModal, Accordion } from "../../molecules";
 import { BookProps } from "../../../utils/constants";
@@ -15,6 +19,7 @@ interface BookModalProps {
   // eslint-disable-next-line  @typescript-eslint/no-explicit-any
   handleClose?: () => any;
   onBookmark?: () => void;
+  onRemoveBookmark?: () => void;
 }
 
 const ChapterAudioContainer = styled(Container)`
@@ -22,8 +27,17 @@ const ChapterAudioContainer = styled(Container)`
   border-bottom: 1px solid rgba(0, 0, 0, 0.1);
 `;
 
-const BookModal = ({ modalData, handleClose, onBookmark }: BookModalProps) => {
+const BookModal = ({
+  modalData,
+  handleClose,
+  onBookmark,
+  onRemoveBookmark,
+}: BookModalProps) => {
   const [accordionState, setAccordionState] = useState<boolean[]>([]);
+
+  const isBookmarked = useSelector((state: RootState) =>
+    selectBookInBookmarkById(state, modalData?.id || 0)
+  );
 
   const handleAccordionClick = (index: number) => {
     setAccordionState((prevState) => {
@@ -43,17 +57,32 @@ const BookModal = ({ modalData, handleClose, onBookmark }: BookModalProps) => {
       onRequestClose={handleClose}
       action={
         <Container display="flex" justifyContent="center" width="100%">
-          <Button
-            variant="primary"
-            width="200px"
-            onClick={() => {
-              if (typeof onBookmark !== "undefined") {
-                onBookmark();
-              }
-            }}
-          >
-            Add to bookmark
-          </Button>
+          {!isBookmarked && (
+            <Button
+              variant="primary"
+              width="200px"
+              onClick={() => {
+                if (typeof onBookmark !== "undefined") {
+                  onBookmark();
+                }
+              }}
+            >
+              Add to bookmark
+            </Button>
+          )}
+          {isBookmarked && (
+            <Button
+              variant="secondary"
+              width="200px"
+              onClick={() => {
+                if (typeof onRemoveBookmark !== "undefined") {
+                  onRemoveBookmark();
+                }
+              }}
+            >
+              Remove bookmark
+            </Button>
+          )}
         </Container>
       }
     >

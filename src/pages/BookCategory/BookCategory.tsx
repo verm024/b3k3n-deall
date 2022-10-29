@@ -2,6 +2,12 @@ import React, { useState } from "react";
 import { useQuery } from "react-query";
 import { useParams } from "react-router-dom";
 
+import { useDispatch } from "react-redux";
+import {
+  addNewBookmark,
+  removeBookmark,
+} from "../../store/reducers/bookmarkReducer";
+
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
@@ -24,6 +30,8 @@ const BookCategory = () => {
   const [page, setPage] = useState<number>(1);
   const [modalData, setModalData] = useState<BookProps>();
   const { id: categoryId } = useParams();
+
+  const dispatch = useDispatch();
 
   const { data = [] } = useQuery(["book-list", page], async () => {
     const res = await fetch(
@@ -50,6 +58,14 @@ const BookCategory = () => {
 
   const handleCloseBookModal = () => {
     setModalData(undefined);
+  };
+
+  const handleClickBookmark = () => {
+    dispatch(addNewBookmark(modalData));
+  };
+
+  const handleRemoveBookmark = () => {
+    dispatch(removeBookmark(modalData));
   };
 
   return (
@@ -81,9 +97,8 @@ const BookCategory = () => {
       <BookModal
         modalData={modalData}
         handleClose={() => handleCloseBookModal()}
-        onBookmark={() => {
-          console.log(modalData);
-        }}
+        onBookmark={handleClickBookmark}
+        onRemoveBookmark={handleRemoveBookmark}
       />
     </Container>
   );
