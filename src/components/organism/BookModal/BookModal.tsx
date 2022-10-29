@@ -91,7 +91,7 @@ const BookModal = ({
       </Container>
       <Spacer size={8} />
       <Text textAlign="center" bold>
-        {modalData?.title} {modalData?.category_id}
+        {modalData?.title}
       </Text>
       <Spacer size={4} />
       <Text textAlign="center">
