@@ -17,7 +17,9 @@ const Home = () => {
   const { isMobile } = useResponsive();
 
   const { data = [] } = useQuery("category", async () => {
-    const res = await fetch("/fee-assessment-categories");
+    const res = await fetch(
+      "https://asia-southeast2-sejutacita-app.cloudfunctions.net/fee-assessment-categories"
+    );
     if (!res.ok) {
       throw new Error("Fetch Error");
     }
