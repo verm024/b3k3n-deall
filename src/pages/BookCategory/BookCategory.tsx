@@ -33,7 +33,7 @@ const BookCategory = () => {
 
   const dispatch = useDispatch();
 
-  const { data = [] } = useQuery(["book-list", page], async () => {
+  const { data = [] } = useQuery(["book-list", categoryId, page], async () => {
     const res = await fetch(
       `/fee-assessment-books?categoryId=${categoryId}&page=${page}`
     );
