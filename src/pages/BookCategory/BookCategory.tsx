@@ -129,6 +129,7 @@ const BookCategory = () => {
             handleSearch();
           }
         }}
+        onBlur={() => handleSearch()}
       />
       {!searchResult.isSearching ? (
         <>
