@@ -65,7 +65,7 @@ const BookCategory = () => {
     if (searchKeyword.length === 0) {
       setSearchResult({ isSearching: false, results: [] });
     } else {
-      const regexPattern = new RegExp(searchKeyword);
+      const regexPattern = new RegExp(searchKeyword.toLowerCase());
       if (bookListQueriesData.length > 0) {
         let allMatchedBooks: BookProps[] = [];
         for (const bookListQueryData of bookListQueriesData) {
