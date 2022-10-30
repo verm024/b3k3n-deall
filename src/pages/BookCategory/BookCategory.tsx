@@ -45,17 +45,24 @@ const BookCategory = () => {
     categoryId,
   ]);
 
-  const { data = [] } = useQuery(["book-list", categoryId, page], async () => {
-    const res = await fetch(
-      process.env.NODE_ENV === "development"
-        ? `/fee-assessment-books?categoryId=${categoryId}&page=${page}`
-        : `${window.location.origin}/api/fee-assessment-books?categoryId=${categoryId}&page=${page}`
-    );
-    if (!res.ok) {
-      throw new Error("Fetch Error");
+  const { data = [] } = useQuery(
+    ["book-list", categoryId, page - 1],
+    async () => {
+      const res = await fetch(
+        process.env.NODE_ENV === "development"
+          ? `/fee-assessment-books?categoryId=${categoryId}&page=${page - 1}`
+          : `${
+              window.location.origin
+            }/api/fee-assessment-books?categoryId=${categoryId}&page=${
+              page - 1
+            }`
+      );
+      if (!res.ok) {
+        throw new Error("Fetch Error");
+      }
+      return await res.json();
     }
-    return await res.json();
-  });
+  );
 
   const handleKeywordChange = (e: React.ChangeEvent) => {
     const target = e.target as HTMLInputElement;
