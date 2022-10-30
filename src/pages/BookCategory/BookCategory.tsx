@@ -12,6 +12,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faChevronLeft } from "@fortawesome/free-solid-svg-icons";
 
 import { BookProps } from "../../utils/constants";
+import { formatAuthorsToString } from "../../utils/helperFunctions";
 
 import {
   Input,
@@ -71,7 +72,9 @@ const BookCategory = () => {
         for (const bookListQueryData of bookListQueriesData) {
           // eslint-disable-next-line  @typescript-eslint/no-explicit-any
           const filtered = (bookListQueryData as [QueryKey, any])[1].filter(
-            (e: BookProps) => regexPattern.test(e.title.toLowerCase())
+            (e: BookProps) =>
+              regexPattern.test(e.title.toLowerCase()) ||
+              regexPattern.test(formatAuthorsToString(e.authors).toLowerCase())
           );
           allMatchedBooks = [...allMatchedBooks, ...filtered];
         }
